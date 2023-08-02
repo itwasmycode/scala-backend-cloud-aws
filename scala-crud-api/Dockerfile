@@ -1,5 +1,5 @@
 # Use the official GraalVM Docker image as the base image
-FROM oracle/graalvm-ce:latest
+FROM ghcr.io/graalvm/graalvm-ce:latest
 
 # Set the working directory inside the container
 WORKDIR /app
