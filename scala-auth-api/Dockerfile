@@ -7,8 +7,8 @@ WORKDIR /app
 # Install necessary build tools
 RUN gu install native-image
 
-# Install unzip and curl on the container
-RUN apt-get update && apt-get install -y unzip curl
+# Install unzip and curl using apk (Alpine package manager)
+RUN apk update && apk add --no-cache unzip curl
 
 # Copy the Scala project files into the container
 COPY build.sbt /app/
