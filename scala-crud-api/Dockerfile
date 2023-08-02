@@ -7,8 +7,8 @@ WORKDIR /app
 # Install necessary build tools
 RUN gu install native-image
 
-# Install unzip and curl using apk (Alpine package manager)
-RUN apk update && apk add --no-cache unzip curl
+# Install unzip and curl using yum (Oracle Linux package manager)
+RUN yum update -y && yum install -y unzip curl
 
 # Copy the Scala project files into the container
 COPY build.sbt /app/
