@@ -1,5 +1,6 @@
 *.class
 *.log
+.bsp
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
@@ -11,7 +12,8 @@ hs_err_pid*
 *.ipr
 
 # Scala Build Target
-target/
+target
+project/target
 
 # IntelliJ output folder
 out/
