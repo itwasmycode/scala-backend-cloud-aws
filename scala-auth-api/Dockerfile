@@ -4,19 +4,23 @@ FROM ghcr.io/graalvm/graalvm-ce:latest
 # Set the working directory inside the container
 WORKDIR /app
 
-# Install necessary build tools
+# Install unzip and curl using the GraalVM utility
 RUN gu install native-image
-
-# Install unzip and curl using yum (Oracle Linux package manager)
-RUN yum update -y && yum install -y unzip curl
+RUN microdnf install unzip curl zip
 
 # Copy the Scala project files into the container
 COPY build.sbt /app/
 COPY src/ /app/src/
 
-# Install sbt and download project dependencies
-RUN curl -s "https://get.sdkman.io" | bash
-RUN bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk install sbt && sbt update"
+# Download and install SBT
+RUN curl -L -o sbt-1.5.5.zip https://github.com/sbt/sbt/releases/download/v1.5.5/sbt-1.5.5.zip && \
+    unzip sbt-1.5.5.zip && \
+    mv sbt /usr/local && \
+    ln -s /usr/local/sbt/bin/sbt /usr/local/bin/sbt
+
+
+# Download project dependencies using SBT
+RUN sbt update
 
 # Build the Scala project with GraalVM native-image
 RUN sbt assembly
