@@ -1,12 +1,17 @@
-name := "scala-auth-api"
+import Dependencies._
 
-version := "0.1"
-
-scalaVersion := "3.0.2"
+ThisBuild / scalaVersion     := "2.13.5"
+ThisBuild / version          := "0.1.0"
+ThisBuild / organization     := "com.example"
+ThisBuild / organizationName := "example.com"
 
 lazy val root = (project in file("."))
   .settings(
+    name := "scala-auth-api",
     libraryDependencies ++= Seq(
-      // Add your dependencies here if required
+      lambdaRuntimeInterfaceClient,
+      scalaTest % Test
     )
-  )
+  ).settings(
+  assembly / assemblyOutputPath := file("target/function.jar")
+)
